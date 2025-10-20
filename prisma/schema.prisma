@@ -1,0 +1,161 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String
+  password      String
+  role          UserRole @default(REQUESTER)
+  department    String?
+  avatar        String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  sentApprovals     Approval[] @relation("RequesterApprovals")
+  firstLayerReviews Approval[] @relation("FirstLayerApprover")
+  secondLayerReviews Approval[] @relation("SecondLayerApprover")
+  thirdLayerReviews  Approval[] @relation("ThirdLayerApprover")
+  auditLogs       AuditLog[]
+  notifications   Notification[]
+
+  @@map("users")
+}
+
+model Approval {
+  id            String   @id @default(cuid())
+  title         String
+  description   String?
+  documentType  DocumentType
+  documentUrl   String
+  documentName  String
+  documentSize  Int
+  status        ApprovalStatus @default(PENDING)
+  currentLayer  Int @default(1)
+  approvalCode  String @unique
+  rejectionNote String?
+  dueDate       DateTime?
+
+  // Requester
+  requesterId   String
+  requester     User @relation("RequesterApprovals", fields: [requesterId], references: [id])
+
+  // Approvers
+  firstLayerApproverId  String?
+  firstLayerApprover    User? @relation("FirstLayerApprover", fields: [firstLayerApproverId], references: [id])
+  secondLayerApproverId String?
+  secondLayerApprover   User? @relation("SecondLayerApprover", fields: [secondLayerApproverId], references: [id])
+  thirdLayerApproverId  String?
+  thirdLayerApprover    User? @relation("ThirdLayerApprover", fields: [thirdLayerApproverId], references: [id])
+
+  // Layer Status
+  firstLayerStatus  LayerStatus @default(PENDING)
+  secondLayerStatus LayerStatus @default(PENDING)
+  thirdLayerStatus  LayerStatus @default(PENDING)
+
+  // Review Details
+  firstLayerReviewedAt  DateTime?
+  secondLayerReviewedAt DateTime?
+  thirdLayerReviewedAt  DateTime?
+
+  firstLayerFeedback  String?
+  secondLayerFeedback String?
+  thirdLayerFeedback  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  notifications Notification[]
+
+  @@map("approvals")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  approvalId String?
+  approval   Approval? @relation(fields: [approvalId], references: [id], onDelete: Cascade)
+  
+  type      NotificationType
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  entity    String
+  entityId  String
+  oldValues Json?
+  newValues Json?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([action])
+  @@index([entity])
+  @@index([entityId])
+  @@index([createdAt])
+  @@index([userId])
+  @@map("audit_logs")
+}
+
+enum UserRole {
+  ADMIN
+  REQUESTER
+  FIRST_APPROVER
+  SECOND_APPROVER
+  THIRD_APPROVER
+}
+
+enum ApprovalStatus {
+  DRAFT
+  PENDING
+  APPROVED
+  REJECTED
+  NEEDS_REVISION
+  COMPLETED
+}
+
+enum LayerStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum DocumentType {
+  ICC
+  QUOTATION
+  PROPOSAL
+}
+
+enum NotificationType {
+  APPROVAL_REQUEST
+  APPROVAL_APPROVED
+  APPROVAL_REJECTED
+  APPROVAL_COMPLETED
+  NEEDS_REVISION
+}
