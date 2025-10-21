@@ -1,11 +1,23 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Users,
   UserPlus,
@@ -16,7 +28,7 @@ import {
   Shield,
   Mail,
   Phone,
-  Building
+  Building,
 } from "lucide-react";
 
 async function getUsers(search?: string, role?: string, department?: string) {
@@ -67,7 +79,10 @@ async function getUsers(search?: string, role?: string, department?: string) {
     distinct: ["department"],
   });
 
-  return { users, departments: departments.map(d => d.department).filter(Boolean) };
+  return {
+    users,
+    departments: departments.map((d) => d.department).filter(Boolean),
+  };
 }
 
 export default async function AdminUsersPage({
@@ -114,10 +129,10 @@ export default async function AdminUsersPage({
       {/* Header */}
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">User Management</h1>
-          <p className="text-slate-400">
-            Manage users, roles, and permissions
-          </p>
+          <h1 className="text-3xl font-bold text-white mb-2">
+            User Management
+          </h1>
+          <p className="text-slate-400">Manage users, roles, and permissions</p>
         </div>
         <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white">
           <UserPlus className="w-4 h-4 mr-2" />
@@ -144,10 +159,30 @@ export default async function AdminUsersPage({
                 <SelectValue placeholder="Filter by role" />
               </SelectTrigger>
               <SelectContent className="bg-slate-700 border-slate-600">
-                <SelectItem value="ALL" className="text-white hover:bg-slate-600">All Roles</SelectItem>
-                <SelectItem value="REQUESTER" className="text-white hover:bg-slate-600">Requester</SelectItem>
-                <SelectItem value="APPROVER" className="text-white hover:bg-slate-600">Approver</SelectItem>
-                <SelectItem value="ADMIN" className="text-white hover:bg-slate-600">Admin</SelectItem>
+                <SelectItem
+                  value="ALL"
+                  className="text-white hover:bg-slate-600"
+                >
+                  All Roles
+                </SelectItem>
+                <SelectItem
+                  value="REQUESTER"
+                  className="text-white hover:bg-slate-600"
+                >
+                  Requester
+                </SelectItem>
+                <SelectItem
+                  value="APPROVER"
+                  className="text-white hover:bg-slate-600"
+                >
+                  Approver
+                </SelectItem>
+                <SelectItem
+                  value="ADMIN"
+                  className="text-white hover:bg-slate-600"
+                >
+                  Admin
+                </SelectItem>
               </SelectContent>
             </Select>
             <Select defaultValue={department}>
@@ -155,9 +190,18 @@ export default async function AdminUsersPage({
                 <SelectValue placeholder="Filter by department" />
               </SelectTrigger>
               <SelectContent className="bg-slate-700 border-slate-600">
-                <SelectItem value="ALL" className="text-white hover:bg-slate-600">All Departments</SelectItem>
+                <SelectItem
+                  value="ALL"
+                  className="text-white hover:bg-slate-600"
+                >
+                  All Departments
+                </SelectItem>
                 {departments.map((dept) => (
-                  <SelectItem key={dept} value={dept} className="text-white hover:bg-slate-600">
+                  <SelectItem
+                    key={dept}
+                    value={dept}
+                    className="text-white hover:bg-slate-600"
+                  >
                     {dept}
                   </SelectItem>
                 ))}
@@ -212,7 +256,9 @@ export default async function AdminUsersPage({
                             </span>
                           </div>
                           <div>
-                            <div className="text-sm font-medium text-white">{user.name}</div>
+                            <div className="text-sm font-medium text-white">
+                              {user.name}
+                            </div>
                             <div className="text-sm text-slate-400 flex items-center">
                               <Mail className="w-3 h-3 mr-1" />
                               {user.email}
@@ -228,7 +274,9 @@ export default async function AdminUsersPage({
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <Badge className={`${getRoleColor(user.role)} border`}>
-                          {user.role === "ADMIN" && <Shield className="w-3 h-3 mr-1" />}
+                          {user.role === "ADMIN" && (
+                            <Shield className="w-3 h-3 mr-1" />
+                          )}
                           {user.role}
                         </Badge>
                       </td>
@@ -246,10 +294,18 @@ export default async function AdminUsersPage({
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex items-center space-x-2">
-                          <Button variant="ghost" size="sm" className="text-blue-400 hover:text-blue-300 hover:bg-slate-600">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-blue-400 hover:text-blue-300 hover:bg-slate-600"
+                          >
                             <Edit className="w-4 h-4" />
                           </Button>
-                          <Button variant="ghost" size="sm" className="text-red-400 hover:text-red-300 hover:bg-slate-600">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-red-400 hover:text-red-300 hover:bg-slate-600"
+                          >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
@@ -258,7 +314,10 @@ export default async function AdminUsersPage({
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-slate-400">
+                    <td
+                      colSpan={6}
+                      className="px-6 py-12 text-center text-slate-400"
+                    >
                       No users found
                     </td>
                   </tr>
@@ -289,7 +348,7 @@ export default async function AdminUsersPage({
               <Shield className="w-8 h-8 text-red-400 mr-3" />
               <div>
                 <p className="text-2xl font-bold text-white">
-                  {users.filter(u => u.role === "ADMIN").length}
+                  {users.filter((u) => u.role === "ADMIN").length}
                 </p>
                 <p className="text-sm text-slate-400">Admins</p>
               </div>
@@ -303,7 +362,7 @@ export default async function AdminUsersPage({
               <UserPlus className="w-8 h-8 text-green-400 mr-3" />
               <div>
                 <p className="text-2xl font-bold text-white">
-                  {users.filter(u => u.role === "APPROVER").length}
+                  {users.filter((u) => u.role === "APPROVER").length}
                 </p>
                 <p className="text-sm text-slate-400">Approvers</p>
               </div>
@@ -317,7 +376,7 @@ export default async function AdminUsersPage({
               <Mail className="w-8 h-8 text-cyan-400 mr-3" />
               <div>
                 <p className="text-2xl font-bold text-white">
-                  {users.filter(u => u.role === "REQUESTER").length}
+                  {users.filter((u) => u.role === "REQUESTER").length}
                 </p>
                 <p className="text-sm text-slate-400">Requesters</p>
               </div>

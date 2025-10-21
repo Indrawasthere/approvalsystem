@@ -8,51 +8,51 @@
 
 A modern, comprehensive approval workflow management system built with Next.js, designed to streamline document approval processes with multi-layer review capabilities, real-time notifications, and advanced analytics.
 
-## ✨ Features
+## Features
 
-### 🔐 Authentication & Authorization
+### Authentication & Authorization
 - **NextAuth Integration**: Secure authentication with multiple providers
 - **Role-Based Access Control**: Admin, Requester, and multi-level Approvers
 - **Session Management**: Protected routes and user sessions
 
-### 📋 Multi-Layer Approval Workflow
+### Multi-Layer Approval Workflow
 - **Flexible Approval Layers**: Up to 3-tier approval process
 - **Document Types**: Support for ICC, Quotations, and Proposals
 - **Status Tracking**: Real-time status updates (Draft, Pending, Approved, Rejected, Completed)
 - **Revision Management**: Track document revisions and feedback
 
-### 📁 Document Management
+### Document Management
 - **Google Drive Integration**: Secure file storage and management
 - **File Upload**: Support for PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max 10MB)
 - **Document Versioning**: Maintain revision history
 - **File Metadata**: Track file size, MIME type, and upload timestamps
 
-### 👥 User Management
+### User Management
 - **Admin Dashboard**: Complete user management system
 - **Department Organization**: Group users by departments
 - **User Roles**: Granular permission system
 - **Profile Management**: User avatars and contact information
 
-### 📊 Analytics & Reporting
+### Analytics & Reporting
 - **Dashboard Analytics**: Comprehensive approval metrics
 - **Monthly Trends**: Visual representation of approval activities
 - **Department Statistics**: Performance insights by department
 - **Approval Time Tracking**: Average processing times
 
-### 🔔 Notifications
+### Notifications
 - **Real-time Notifications**: Instant updates on approval status
 - **Email Integration**: Automated email notifications
 - **Notification Center**: In-app notification management
 - **Mark as Read**: Bulk notification management
 
-### 🎨 Modern UI/UX
+### Modern UI/UX
 - **Dark Theme**: Sleek dark interface with gradient accents
 - **Responsive Design**: Mobile-first approach
 - **Radix UI Components**: Accessible and customizable components
 - **Tailwind CSS**: Utility-first styling
 - **Lucide Icons**: Consistent iconography
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 proveit/
@@ -90,7 +90,7 @@ proveit/
 └── package.json              # Dependencies and scripts
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -156,7 +156,7 @@ proveit/
 
    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 📖 API Documentation
+## API Documentation
 
 ### Authentication Endpoints
 - `POST /api/auth/register` - User registration
@@ -176,7 +176,7 @@ proveit/
 ### File Upload
 - `POST /api/upload` - Upload files to Google Drive
 
-## 🎯 User Roles & Permissions
+## User Roles & Permissions
 
 | Role | Permissions |
 |------|-------------|
@@ -186,7 +186,7 @@ proveit/
 | **Second Approver** | Review second-layer approvals, provide feedback |
 | **Third Approver** | Final approval layer, provide feedback |
 
-## 📊 Database Schema
+## Database Schema
 
 ### Core Models
 - **User**: Authentication and profile data
@@ -199,7 +199,7 @@ proveit/
 - Approvals track status across multiple review layers
 - Notifications link to specific approvals and users
 
-## 🔧 Tech Stack
+## Tech Stack
 
 ### Frontend
 - **Next.js 15** - React framework with App Router
@@ -224,7 +224,7 @@ proveit/
 - **Prettier** - Code formatting
 - **TypeScript** - Type checking
 
-## 🎬 Demo
+## Demo
 
 ### Screenshots
 <!-- Add your screenshots here -->
@@ -236,7 +236,7 @@ proveit/
 <!-- Add your demo video here -->
 [![ProveIT Demo](https://via.placeholder.com/800x400/1a1a1a/ffffff?text=Demo+Video)](https://www.youtube.com/watch?v=demo-video-id)
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -244,11 +244,11 @@ proveit/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Next.js](https://nextjs.org/) - The React framework
 - [Prisma](https://www.prisma.io/) - Database toolkit
@@ -256,7 +256,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Radix UI](https://www.radix-ui.com/) - Component library
 - [Google Drive API](https://developers.google.com/drive/api) - File storage
 
-## 📞 Support
+## Support
 
 For support, email support@proveit.com or join our Discord community.
 

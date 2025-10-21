@@ -3,7 +3,13 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { StatsCard } from "@/components/dashboard/stats-card";
-import { FileText, Clock, CheckCircle, AlertCircle, TrendingUp } from "lucide-react";
+import {
+  FileText,
+  Clock,
+  CheckCircle,
+  AlertCircle,
+  TrendingUp,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -124,8 +130,8 @@ export default async function DashboardPage() {
                         approval.status === "APPROVED"
                           ? "bg-green-500/20 text-green-400"
                           : approval.status === "REJECTED"
-                          ? "bg-red-500/20 text-red-400"
-                          : "bg-yellow-500/20 text-yellow-400"
+                            ? "bg-red-500/20 text-red-400"
+                            : "bg-yellow-500/20 text-yellow-400"
                       }`}
                     >
                       {approval.status}
@@ -135,9 +141,7 @@ export default async function DashboardPage() {
               </Link>
             ))
           ) : (
-            <p className="text-slate-400 text-center py-8">
-              No approvals yet
-            </p>
+            <p className="text-slate-400 text-center py-8">No approvals yet</p>
           )}
         </div>
       </div>
