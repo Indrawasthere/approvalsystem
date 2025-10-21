@@ -1,8 +1,7 @@
-// src/components/dashboard/modern-header.tsx
 "use client";
 
 import { useSession } from "next-auth/react";
-import { Bell, Settings, LogOut } from "lucide-react";
+import { Settings, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
@@ -14,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { NotificationCenter } from "./notification-center";
 
 export function ModernHeader() {
   const { data: session } = useSession();
@@ -33,14 +33,7 @@ export function ModernHeader() {
 
       <div className="flex items-center gap-4">
         {/* Notifications */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="relative hover:bg-slate-700 text-slate-300 hover:text-white"
-        >
-          <Bell className="w-5 h-5" />
-          <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full" />
-        </Button>
+        <NotificationCenter />
 
         {/* Profile Menu */}
         <DropdownMenu>

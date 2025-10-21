@@ -47,7 +47,9 @@ export default async function LoginPage() {
         <div className="mt-8 bg-slate-800/50 border border-slate-700 rounded-lg p-4 text-xs text-slate-400">
           <p className="font-semibold text-slate-300 mb-2">Demo Credentials:</p>
           <p>Requester: requester@approvalhub.com / requester123</p>
-          <p>Approver: approver1@approvalhub.com / approver123</p>
+          <p>Level 1: approver1@approvalhub.com / approver123</p>
+          <p>Level 2: approver2@approvalhub.com / approver123</p>
+          <p>Level 3: approver3@approvalhub.com / approver123</p>
         </div>
       </div>
     </div>

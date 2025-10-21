@@ -1,4 +1,3 @@
-// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
@@ -39,11 +38,15 @@ model Approval {
   documentUrl   String
   documentName  String
   documentSize  Int
+  documentFileId String?   // For Google Drive tracking
+  documentMimeType String?
   status        ApprovalStatus @default(PENDING)
   currentLayer  Int @default(1)
   approvalCode  String @unique
   rejectionNote String?
   dueDate       DateTime?
+  revisionCount Int @default(0)
+  revisionHistory Json @default("[]")
 
   // Requester
   requesterId   String
@@ -57,12 +60,12 @@ model Approval {
   thirdLayerApproverId  String?
   thirdLayerApprover    User? @relation("ThirdLayerApprover", fields: [thirdLayerApproverId], references: [id])
 
-  // Layer Status
+  // Layer Status - Track each layer decision
   firstLayerStatus  LayerStatus @default(PENDING)
   secondLayerStatus LayerStatus @default(PENDING)
   thirdLayerStatus  LayerStatus @default(PENDING)
 
-  // Review Details
+  // Review Details - Track feedback from each layer
   firstLayerReviewedAt  DateTime?
   secondLayerReviewedAt DateTime?
   thirdLayerReviewedAt  DateTime?
@@ -77,6 +80,10 @@ model Approval {
   // Relations
   notifications Notification[]
 
+  @@index([currentLayer, status])
+  @@index([firstLayerApproverId])
+  @@index([secondLayerApproverId])
+  @@index([thirdLayerApproverId])
   @@map("approvals")
 }
 
@@ -134,9 +141,9 @@ enum UserRole {
 enum ApprovalStatus {
   DRAFT
   PENDING
+  NEEDS_REVISION
   APPROVED
   REJECTED
-  NEEDS_REVISION
   COMPLETED
 }
 
@@ -156,6 +163,6 @@ enum NotificationType {
   APPROVAL_REQUEST
   APPROVAL_APPROVED
   APPROVAL_REJECTED
-  APPROVAL_COMPLETED
   NEEDS_REVISION
+  LAYER_READY
 }

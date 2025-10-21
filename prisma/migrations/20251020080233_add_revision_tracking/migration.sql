@@ -93,6 +93,18 @@ CREATE TABLE "audit_logs" (
     CONSTRAINT "audit_logs_pkey" PRIMARY KEY ("id")
 );
 
+-- Add revision tracking fields
+ALTER TABLE "approvals" ADD COLUMN "revisionCount" INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE "approvals" ADD COLUMN "revisionHistory" JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE "approvals" ADD COLUMN "documentFileId" TEXT;
+ALTER TABLE "approvals" ADD COLUMN "documentMimeType" TEXT;
+
+-- Add index for faster queries
+CREATE INDEX "approvals_currentLayer_status_idx" ON "approvals"("currentLayer", "status");
+CREATE INDEX "approvals_firstLayerApproverId_idx" ON "approvals"("firstLayerApproverId") WHERE "firstLayerStatus" = 'PENDING';
+CREATE INDEX "approvals_secondLayerApproverId_idx" ON "approvals"("secondLayerApproverId") WHERE "secondLayerStatus" = 'PENDING';
+CREATE INDEX "approvals_thirdLayerApproverId_idx" ON "approvals"("thirdLayerApproverId") WHERE "thirdLayerStatus" = 'PENDING';
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 

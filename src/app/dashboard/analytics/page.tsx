@@ -94,8 +94,7 @@ async function getAnalyticsData() {
   // Average approval time (in days)
   const approvedApprovalsWithTime = await prisma.approval.findMany({
     where: {
-      status: "APPROVED",
-      updatedAt: { not: null }
+      status: "APPROVED"
     },
     select: {
       createdAt: true,
@@ -290,9 +289,9 @@ export default async function AnalyticsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {data.departmentStats.map((dept) => (
-                <div key={dept.requesterDepartment} className="flex items-center justify-between">
-                  <span className="text-slate-300">{dept.requesterDepartment}</span>
+              {data.departmentStats.map((dept, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <span className="text-slate-300">{dept.department}</span>
                   <Badge variant="secondary" className="bg-slate-700 text-slate-300">
                     {dept._count.id}
                   </Badge>

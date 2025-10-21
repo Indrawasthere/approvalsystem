@@ -22,7 +22,7 @@ import { useState } from "react";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Approvals", href: "/dashboard/approvals", icon: FileText },
+  { name: "My Approvals", href: "/dashboard/approvals", icon: FileText },
   { name: "New Approval", href: "/dashboard/approvals/new", icon: Plus },
   { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
   { name: "Users", href: "/dashboard/admin/users", icon: Users, adminOnly: true },
@@ -54,7 +54,7 @@ export function ModernSidebar({ userRole }: ModernSidebarProps) {
                 <span className="text-sm font-bold text-slate-900">A</span>
               </div>
               <span className="font-bold text-lg bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                ApprovalHub
+                Approval Hub
               </span>
             </div>
           )}
