@@ -262,4 +262,4 @@ For support, email support@proveit.com or join our Discord community.
 
 ---
 
-**Made with ❤️ by [Your Name]**
+**Made by thousand tears, by Indrawasthere**
