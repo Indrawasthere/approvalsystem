@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bell, Check, CheckCheck, X } from "lucide-react";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface Notification {
@@ -31,6 +31,7 @@ interface Notification {
 export function NotificationCenter() {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
   // Fetch notifications
@@ -72,7 +73,10 @@ export function NotificationCenter() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notifications"] });
-      toast.success("All notifications marked as read");
+      toast({
+        title: "Success",
+        description: "All notifications marked as read",
+      });
     },
   });
 

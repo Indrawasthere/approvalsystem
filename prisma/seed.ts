@@ -4,72 +4,111 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Seeding demo users...');
+  console.log('🌱 Seeding database...');
 
-  // Hash passwords
   const requesterPassword = await bcrypt.hash('requester123', 12);
   const approverPassword = await bcrypt.hash('approver123', 12);
 
-  // Create requester
+  // 1. Create Requester
   const requester = await prisma.user.upsert({
-  where: { email: 'mhmdfdln14@gmail.com' },
-  update: {},
-  create: {
-    email: 'mhmdfdln14@gmail.com',
-    name: 'Requester',
-    password: await bcrypt.hash('requester123', 12),
-    role: 'REQUESTER',
-    department: 'Testing',
-  },
-});
+    where: { email: 'mhmdfdln14@gmail.com' },
+    update: {
+      password: requesterPassword,
+      role: 'REQUESTER',
+      isActive: true,
+    },
+    create: {
+      email: 'mhmdfdln14@gmail.com',
+      name: 'Muhammad Fadlan',
+      password: requesterPassword,
+      role: 'REQUESTER',
+      department: 'Tech and Product',
+      isActive: true,
+    },
+  });
 
-const approver1 = await prisma.user.upsert({
-  where: { email: 'aquaswing4@gmail.com' },
-  update: {},
-  create: {
-    email: 'aquaswing4@gmail.com',
-    name: 'Approver 1',
-    password: await bcrypt.hash('approver123', 12),
-    role: 'FIRST_APPROVER',
-    department: 'Testing',
-  },
-});
+  // 2. Create Layer 1 Approver
+  const approver1 = await prisma.user.upsert({
+    where: { email: 'aquaswing4@gmail.com' },
+    update: {
+      password: approverPassword,
+      role: 'FIRST_APPROVER',
+      isActive: true,
+    },
+    create: {
+      email: 'aquaswing4@gmail.com',
+      name: 'Layer 1 Approver',
+      password: approverPassword,
+      role: 'FIRST_APPROVER',
+      department: 'Head of Department',
+      isActive: true,
+    },
+  });
 
+  // 3. Create Layer 2 Approver
   const approver2 = await prisma.user.upsert({
     where: { email: 'vc.ag@atreusg.com' },
-    update: {},
-    create: {
-      email: 'vc.ag@atreusg.com',
-      name: 'Approver 2',
+    update: {
       password: approverPassword,
       role: 'SECOND_APPROVER',
-      department: 'Demo Department',
+      isActive: true,
+    },
+    create: {
+      email: 'vc.ag@atreusg.com',
+      name: 'Layer 2 Approver',
+      password: approverPassword,
+      role: 'SECOND_APPROVER',
+      department: 'Finance',
+      isActive: true,
     },
   });
 
+  // 4. Create Layer 3 Approver
   const approver3 = await prisma.user.upsert({
     where: { email: 'muhammad.hafiz@atreusg.com' },
-    update: {},
-    create: {
-      email: 'muhammad.hafiz@atreusg.com',
-      name: 'Approver 3',
+    update: {
       password: approverPassword,
       role: 'THIRD_APPROVER',
-      department: 'Demo Department',
+      isActive: true,
+    },
+    create: {
+      email: 'muhammad.hafiz@atreusg.com',
+      name: 'Layer 3 Approver',
+      password: approverPassword,
+      role: 'THIRD_APPROVER',
+      department: 'CEO',
+      isActive: true,
     },
   });
 
-  console.log('Demo users created:', {
-    requester: requester.email,
-    approver1: approver1.email,
-    approver2: approver2.email,
-    approver3: approver3.email
+  // 5. Clean up old dummy approvers
+  console.log('🗑️ Cleaning up old approvers...');
+  await prisma.user.deleteMany({
+    where: {
+      email: {
+        in: [
+          'approver1@approvalhub.com',
+          'approver2@approvalhub.com',
+          'approver3@approvalhub.com',
+          'requester@approvalhub.com',
+          'admin@approvalhub.com',
+        ]
+      }
+    }
   });
+
+  console.log('✅ Seed completed successfully!');
+  console.log('\n📋 Created users:');
+  console.log(`  Requester: ${requester.email} / requester123`);
+  console.log(`  Layer 1: ${approver1.email} / approver123`);
+  console.log(`  Layer 2: ${approver2.email} / approver123`);
+  console.log(`  Layer 3: ${approver3.email} / approver123`);
+  console.log('\n🔐 All passwords: requester123 or approver123');
 }
 
 main()
   .catch((e) => {
-    console.error(e);
+    console.error('❌ Seed error:', e);
     process.exit(1);
   })
   .finally(async () => {

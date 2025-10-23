@@ -91,7 +91,7 @@ export async function PUT(
 
     const layerField = `layer${layer === 1 ? "First" : layer === 2 ? "Second" : "Third"}`;
 
-    let updateData: any = {
+    const updateData: any = {
       [`${layerField}Status`]: action === "approve" ? "APPROVED" : "REJECTED",
       [`${layerField}ReviewedAt`]: new Date(),
       [`${layerField}Feedback`]: feedback,

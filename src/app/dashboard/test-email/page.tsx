@@ -7,9 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Mail, CheckCircle, XCircle, Loader, Send, Settings } from "lucide-react";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 
 export default function TestEmailPage() {
+  const { toast } = useToast();
   const [config, setConfig] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
@@ -28,7 +29,11 @@ export default function TestEmailPage() {
       setConfig(data);
     } catch (error) {
       console.error("Failed to fetch config:", error);
-      toast.error("Failed to load email configuration");
+      toast({
+        title: "Error",
+        description: "Failed to load email configuration",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
@@ -36,7 +41,11 @@ export default function TestEmailPage() {
 
   const sendTestEmail = async () => {
     if (!testEmail.trim()) {
-      toast.error("Please enter an email address");
+      toast({
+        title: "Error",
+        description: "Please enter an email address",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -51,13 +60,24 @@ export default function TestEmailPage() {
       const data = await res.json();
 
       if (res.ok) {
-        toast.success(`Test email sent to ${testEmail}! Check your inbox.`);
+        toast({
+          title: "Success",
+          description: `Test email sent to ${testEmail}! Check your inbox.`,
+        });
       } else {
-        toast.error(data.error || "Failed to send email");
+        toast({
+          title: "Error",
+          description: data.error || "Failed to send email",
+          variant: "destructive",
+        });
       }
     } catch (error) {
       console.error("Send test email error:", error);
-      toast.error("Network error");
+      toast({
+        title: "Error",
+        description: "Network error",
+        variant: "destructive",
+      });
     } finally {
       setSending(false);
     }

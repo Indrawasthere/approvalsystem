@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { FileText, Upload, X, Loader, CheckCircle, Sparkles, Trophy } from "lucide-react";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 
 const approvalSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -25,6 +25,7 @@ type ApprovalFormData = z.infer<typeof approvalSchema>;
 
 export function ApprovalForm() {
   const router = useRouter();
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState<string>("");
@@ -45,7 +46,11 @@ export function ApprovalForm() {
     if (selectedFile) {
       // Validate file size
       if (selectedFile.size > 10 * 1024 * 1024) {
-        toast.error("File too large (max 10MB)");
+        toast({
+          title: "Error",
+          description: "File too large (max 10MB)",
+          variant: "destructive",
+        });
         return;
       }
       setFile(selectedFile);
@@ -58,7 +63,11 @@ export function ApprovalForm() {
 
   const onSubmit = async (data: ApprovalFormData) => {
     if (!file) {
-      toast.error("Please upload a document");
+      toast({
+        title: "Error",
+        description: "Please upload a document",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -86,7 +95,11 @@ export function ApprovalForm() {
       setShowSuccessDialog(true);
     } catch (error) {
       console.error("Error creating approval:", error);
-      toast.error(error instanceof Error ? error.message : "Failed to create approval");
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to create approval",
+        variant: "destructive",
+      });
       setUploadProgress("");
     } finally {
       setIsSubmitting(false);
@@ -108,12 +121,12 @@ export function ApprovalForm() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label htmlFor="title" className="text-white">Title *</Label>
+              <Label htmlFor="title" className="text-white">Subject *</Label>
               <Input
                 id="title"
                 {...register("title")}
                 className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 mt-1"
-                placeholder="Enter approval title"
+                placeholder="Enter approval subject"
               />
               {errors.title && (
                 <p className="text-red-400 text-sm mt-1">{errors.title.message}</p>
@@ -241,7 +254,7 @@ export function ApprovalForm() {
               <Trophy className="h-8 w-8 text-white" />
             </div>
             <DialogTitle className="text-2xl font-bold text-white">
-              🎉 Approval Created Successfully!
+              Approval Created Successfully!
             </DialogTitle>
             <DialogDescription className="text-slate-300 text-center">
               Your approval request has been submitted and is now pending review.

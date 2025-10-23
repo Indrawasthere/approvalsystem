@@ -57,15 +57,15 @@ async function getUsers(search?: string, role?: string, department?: string) {
       email: true,
       role: true,
       department: true,
-      phone: true,
+
       isActive: true,
       createdAt: true,
       _count: {
         select: {
-          approvalsAsRequester: true,
-          approvalsAsFirstApprover: true,
-          approvalsAsSecondApprover: true,
-          approvalsAsThirdApprover: true,
+          sentApprovals: true,
+          firstLayerReviews: true,
+          secondLayerReviews: true,
+          thirdLayerReviews: true,
         },
       },
     },
@@ -117,10 +117,10 @@ export default async function AdminUsersPage({
 
   const getTotalApprovals = (user: any) => {
     return (
-      user._count.approvalsAsRequester +
-      user._count.approvalsAsFirstApprover +
-      user._count.approvalsAsSecondApprover +
-      user._count.approvalsAsThirdApprover
+      user._count.sentApprovals +
+      user._count.firstLayerReviews +
+      user._count.secondLayerReviews +
+      user._count.thirdLayerReviews
     );
   };
 

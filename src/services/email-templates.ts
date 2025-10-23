@@ -132,7 +132,7 @@ class EmailTemplates {
   approvalRequest(data: EmailTemplateData): { subject: string; html: string } {
     const content = `
       <div class="header">
-        <h1>🔔 New Approval Request</h1>
+        <h1>New Approval Request</h1>
       </div>
       <div class="content">
         <h2>Hi ${data.recipientName},</h2>
@@ -152,7 +152,7 @@ class EmailTemplates {
     `;
 
     return {
-      subject: `🔔 New Approval Request - ${data.approval.title}`,
+      subject: `New Approval Request - ${data.approval.title}`,
       html: this.wrapEmail(content),
     };
   }
@@ -161,7 +161,7 @@ class EmailTemplates {
   layerReady(data: EmailTemplateData): { subject: string; html: string } {
     const content = `
       <div class="header">
-        <h1>✅ Approval Ready for Your Review</h1>
+        <h1>Approval Ready for Your Review</h1>
       </div>
       <div class="content">
         <h2>Hi ${data.recipientName},</h2>
@@ -181,7 +181,7 @@ class EmailTemplates {
     `;
 
     return {
-      subject: `✅ Approval Ready - Layer ${data.layer} Review Required`,
+      subject: `Approval Ready - Layer ${data.layer} Review Required`,
       html: this.wrapEmail(content),
     };
   }
@@ -190,7 +190,7 @@ class EmailTemplates {
   approvalCompleted(data: EmailTemplateData): { subject: string; html: string } {
     const content = `
       <div class="header">
-        <h1>🎉 Approval Completed</h1>
+        <h1>Approval Completed</h1>
       </div>
       <div class="content">
         <h2>Hi ${data.recipientName},</h2>
@@ -209,7 +209,7 @@ class EmailTemplates {
     `;
 
     return {
-      subject: `🎉 Approval Completed - ${data.approval.title}`,
+      subject: `Approval Completed - ${data.approval.title}`,
       html: this.wrapEmail(content),
     };
   }
@@ -218,7 +218,7 @@ class EmailTemplates {
   needsRevision(data: EmailTemplateData): { subject: string; html: string } {
     const content = `
       <div class="header">
-        <h1>🔄 Revision Needed</h1>
+        <h1>Attention, Revision Needed!</h1>
       </div>
       <div class="content">
         <h2>Hi ${data.recipientName},</h2>
@@ -243,7 +243,7 @@ class EmailTemplates {
     `;
 
     return {
-      subject: `🔄 Revision Needed - ${data.approval.title}`,
+      subject: `Revision Needed - ${data.approval.title}`,
       html: this.wrapEmail(content),
     };
   }
@@ -252,7 +252,7 @@ class EmailTemplates {
   approvalRejected(data: EmailTemplateData): { subject: string; html: string } {
     const content = `
       <div class="header">
-        <h1>❌ Approval Rejected</h1>
+        <h1>Approval Rejected</h1>
       </div>
       <div class="content">
         <h2>Hi ${data.recipientName},</h2>
@@ -261,7 +261,7 @@ class EmailTemplates {
         <div class="info-box">
           <p><span class="info-label">Title</span><br><span class="info-value">${data.approval.title}</span></p>
           <p><span class="info-label">Code</span><br><span class="info-value">${data.approval.code}</span></p>
-          <p><span class="info-label">Status</span><br><span class="info-value" style="color: #ef4444;">❌ REJECTED</span></p>
+          <p><span class="info-label">Status</span><br><span class="info-value" style="color: #ef4444;">REJECTED</span></p>
         </div>
         
         ${data.feedback ? `
@@ -278,7 +278,7 @@ class EmailTemplates {
     `;
 
     return {
-      subject: `❌ Approval Rejected - ${data.approval.title}`,
+      subject: `Approval Rejected - ${data.approval.title}`,
       html: this.wrapEmail(content),
     };
   }

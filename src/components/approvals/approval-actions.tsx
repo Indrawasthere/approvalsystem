@@ -20,7 +20,7 @@ import {
   RotateCcw,
   Loader,
 } from "lucide-react";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 
 interface ApprovalActionsProps {
   approval: any;
@@ -34,6 +34,7 @@ export function ApprovalActions({
   currentUserId,
 }: ApprovalActionsProps) {
   const router = useRouter();
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [actionType, setActionType] = useState("approve");
@@ -66,7 +67,11 @@ export function ApprovalActions({
 
   const handleDecision = async () => {
     if (!feedback.trim()) {
-      toast.error("Please provide feedback for your decision");
+      toast({
+        title: "Error",
+        description: "Please provide feedback for your decision",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -86,11 +91,18 @@ export function ApprovalActions({
         throw new Error(error.error || "Failed to submit decision");
       }
 
-      toast.success("Decision submitted successfully!");
+      toast({
+        title: "Success",
+        description: "Decision submitted successfully!",
+      });
       router.refresh();
     } catch (error) {
       console.error("Error:", error);
-      toast.error(error instanceof Error ? error.message : "An error occurred");
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "An error occurred",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -110,11 +122,18 @@ export function ApprovalActions({
         throw new Error(error.error || "Failed to resubmit");
       }
 
-      toast.success("Approval resubmitted for review!");
+      toast({
+        title: "Success",
+        description: "Approval resubmitted for review!",
+      });
       router.refresh();
     } catch (error) {
       console.error("Error:", error);
-      toast.error(error instanceof Error ? error.message : "An error occurred");
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "An error occurred",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }

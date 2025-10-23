@@ -15,9 +15,9 @@ class GoogleDriveService {
       });
 
       this.drive = google.drive({ version: "v3", auth });
-      console.log("✅ Google Drive service initialized");
+      console.log("Google Drive service initialized");
     } catch (error) {
-      console.error("❌ Google Drive initialization error:", error);
+      console.error("Google Drive initialization error:", error);
       throw error;
     }
   }
@@ -28,8 +28,8 @@ class GoogleDriveService {
     mimeType: string
   ): Promise<{ fileId: string; webViewLink: string }> {
     try {
-      console.log(`📤 Uploading file: ${fileName} (${mimeType})`);
-      console.log(`📁 Target folder: ${process.env.GOOGLE_DRIVE_FOLDER_ID}`);
+      console.log(`Uploading file: ${fileName} (${mimeType})`);
+      console.log(`Target folder: ${process.env.GOOGLE_DRIVE_FOLDER_ID}`);
 
       const fileMetadata = {
         name: `${Date.now()}-${fileName}`,
@@ -50,7 +50,7 @@ class GoogleDriveService {
         supportsAllDrives: true, // IMPORTANT for Shared Drive
       });
 
-      console.log(`✅ File uploaded: ${response.data.id}`);
+      console.log(`File uploaded: ${response.data.id}`);
 
       // Make publicly readable (with Shared Drive support)
       try {
@@ -62,9 +62,9 @@ class GoogleDriveService {
           },
           supportsAllDrives: true, // IMPORTANT for Shared Drive
         });
-        console.log("✅ Permissions set to public");
+        console.log("Permissions set to public");
       } catch (permError) {
-        console.warn("⚠️ Could not set public permissions:", permError);
+        console.warn("Could not set public permissions:", permError);
         // Not critical, file still uploaded
       }
 
@@ -75,7 +75,7 @@ class GoogleDriveService {
         webViewLink,
       };
     } catch (error: any) {
-      console.error("❌ Google Drive upload error:", error);
+      console.error("Google Drive upload error:", error);
       console.error("Error details:", {
         message: error.message,
         code: error.code,
@@ -107,9 +107,9 @@ class GoogleDriveService {
         fileId,
         supportsAllDrives: true, // IMPORTANT for Shared Drive
       });
-      console.log(`✅ File deleted: ${fileId}`);
+      console.log(`File deleted: ${fileId}`);
     } catch (error) {
-      console.error("❌ Google Drive delete error:", error);
+      console.error("Google Drive delete error:", error);
     }
   }
 
@@ -136,7 +136,7 @@ class GoogleDriveService {
         supportsAllDrives: true,
       });
 
-      console.log("📁 Folder info:", response.data);
+      console.log("Folder info:", response.data);
 
       return {
         success: true,
@@ -150,7 +150,7 @@ class GoogleDriveService {
         },
       };
     } catch (error: any) {
-      console.error("❌ Connection test failed:", error);
+      console.error("Connection test failed:", error);
       return {
         success: false,
         message: error.message || "Connection test failed",

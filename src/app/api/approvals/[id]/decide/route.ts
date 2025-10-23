@@ -80,7 +80,7 @@ export async function POST(
     }
 
     // Build update data based on decision
-    let updateData: any = {};
+    const updateData: any = {};
     const layerField = `${userLayer === 1 ? "first" : userLayer === 2 ? "second" : "third"}Layer`;
 
     if (decision === "APPROVE") {

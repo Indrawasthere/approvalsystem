@@ -11,7 +11,7 @@ class EmailService {
   private initializeTransporter() {
     // Check if email config exists
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-      console.warn("⚠️ Email configuration missing. Emails will be logged only.");
+      console.warn("Email configuration missing. Emails will be logged only.");
       return;
     }
 
@@ -26,9 +26,9 @@ class EmailService {
         },
       });
 
-      console.log("✅ Email transporter initialized");
+      console.log("Email transporter initialized");
     } catch (error) {
-      console.error("❌ Email transporter initialization failed:", error);
+      console.error("Email transporter initialization failed:", error);
       this.transporter = null;
     }
   }
@@ -37,7 +37,7 @@ class EmailService {
     // Log email for development
     console.log(`
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📧 SENDING EMAIL
+SENDING EMAIL
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 To: ${to}
 Subject: ${subject}
@@ -46,7 +46,7 @@ Subject: ${subject}
 
     // If no transporter (config missing), just log
     if (!this.transporter) {
-      console.log("⚠️ Email not sent (transporter not configured)");
+      console.log("Email not sent (transporter not configured)");
       return false;
     }
 
@@ -58,10 +58,10 @@ Subject: ${subject}
         html,
       });
 
-      console.log("✅ Email sent successfully:", info.messageId);
+      console.log("Email sent successfully:", info.messageId);
       return true;
     } catch (error: any) {
-      console.error("❌ Email sending failed:", error);
+      console.error("Email sending failed:", error);
       
       // Log specific errors
       if (error.code === "EAUTH") {
@@ -103,7 +103,7 @@ Subject: ${subject}
 
   // Test email function
   async sendTestEmail(to: string): Promise<boolean> {
-    const subject = "🧪 ApprovalHub Email Test";
+    const subject = "ApprovalHub Email Test";
     const html = `
 <!DOCTYPE html>
 <html>
@@ -144,9 +144,9 @@ Subject: ${subject}
 </head>
 <body>
   <div class="container">
-    <h1>🎉 Email Configuration Successful!</h1>
+    <h1>Email Configuration Successful!</h1>
     <div class="success">
-      ✅ Email service is working properly
+      Email service is working properly
     </div>
     <p>This is a test email from ApprovalHub to verify that email notifications are working correctly.</p>
     <p><strong>Sent to:</strong> ${to}</p>
@@ -165,16 +165,16 @@ Subject: ${subject}
   // Verify transporter connection
   async verifyConnection(): Promise<boolean> {
     if (!this.transporter) {
-      console.log("⚠️ Email transporter not configured");
+      console.log("Email transporter not configured");
       return false;
     }
 
     try {
       await this.transporter.verify();
-      console.log("✅ Email server connection verified");
+      console.log("Email server connection verified");
       return true;
     } catch (error) {
-      console.error("❌ Email server connection failed:", error);
+      console.error("Email server connection failed:", error);
       return false;
     }
   }

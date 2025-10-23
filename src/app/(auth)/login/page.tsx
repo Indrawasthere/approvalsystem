@@ -25,7 +25,7 @@ export default async function LoginPage() {
                 Approval Hub
               </h1>
             </div>
-            <p className="text-slate-400">Sign in to your account</p>
+          <p className="text-slate-400">Sign in to your account</p>
           </div>
 
           {/* Login Form */}

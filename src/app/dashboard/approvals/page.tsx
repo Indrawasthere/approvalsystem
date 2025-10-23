@@ -56,14 +56,15 @@ async function getApprovals(userId: string, userRole: string, search?: string, s
 export default async function ApprovalsPage({
   searchParams,
 }: {
-  searchParams: { search?: string; status?: string; page?: string };
+  searchParams: Promise<{ search?: string; status?: string; page?: string }>;
 }) {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
-  const search = searchParams.search || "";
-  const status = searchParams.status || "ALL";
-  const page = parseInt(searchParams.page || "1");
+  const params = await searchParams;
+  const search = params.search || "";
+  const status = params.status || "ALL";
+  const page = parseInt(params.page || "1");
 
   const { approvals, total, totalPages } = await getApprovals(
     (session.user as any).id,

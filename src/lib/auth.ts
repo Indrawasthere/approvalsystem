@@ -79,7 +79,7 @@ export const authOptions: NextAuthOptions = {
   },
   events: {
     async signIn({ user }: any) {
-      console.log(`✅ User signed in: ${user.email}`);
+      console.log(`User signed in: ${user.email}`);
     },
   },
 };

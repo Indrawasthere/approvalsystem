@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { generateApprovalCode } from "@/lib/utils";
 import { googleDriveService } from "@/services/google-drive";
+import { notificationService } from "@/services/notifications"; // ✅ IMPORT INI!
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,7 +18,7 @@ export async function GET(request: NextRequest) {
     const userRole = (session.user as any).role;
     const userId = (session.user as any).id;
 
-    let where: any = {};
+    const where: any = {};
 
     if (userRole === "REQUESTER") {
       where.requesterId = userId;
@@ -173,42 +174,23 @@ export async function POST(request: NextRequest) {
 
     console.log("✅ Approval created:", approval.id);
 
-    // Create notification for first approver
+    // ✅ SEND EMAIL NOTIFICATION (FIXED!)
     if (layer1) {
-      await prisma.notification.create({
-        data: {
-          userId: layer1.id,
-          approvalId: approval.id,
+      console.log("📧 Sending email notification to Layer 1...");
+      
+      try {
+        await notificationService.createNotification(layer1.id, {
           type: "APPROVAL_REQUEST",
           title: `New Approval Request`,
-          message: `${(approval as any).requester.name} submitted "${title}" for approval`,
-        },
-      });
+          message: `${approval.requester.name} submitted "${title}" for approval`,
+          approvalId: approval.id,
+        });
 
-      console.log("✅ Notification created for Layer 1");
-
-      // Mock email log
-      console.log(`
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📧 EMAIL NOTIFICATION
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-To: ${layer1.email}
-Subject: 🔔 New Approval Request - ${title}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Hi ${layer1.name},
-
-${(approval as any).requester.name} has submitted a new approval request.
-
-📄 Title: ${title}
-🔖 Code: ${approval.approvalCode}
-📁 Type: ${documentType}
-📅 Due: ${approval.dueDate?.toLocaleDateString()}
-
-👉 Review: ${process.env.NEXTAUTH_URL}/dashboard/approvals/${approval.id}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-`);
+        console.log("✅ Email notification sent successfully!");
+      } catch (emailError) {
+        console.error("⚠️ Email notification failed (but approval created):", emailError);
+        // Don't fail the whole request if email fails
+      }
     }
 
     return NextResponse.json(approval, { status: 201 });

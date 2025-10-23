@@ -28,7 +28,7 @@ export function ModernHeader() {
   };
 
   return (
-    <header className="h-16 bg-gradient-to-r from-slate-900 to-slate-800 border-b border-slate-700 flex items-center justify-between px-6 sticky top-0 z-30">
+    <header className="h-16 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border-b border-slate-700 flex items-center justify-between px-6 sticky top-0 z-30">
       <div className="flex-1" />
 
       <div className="flex items-center gap-4">
