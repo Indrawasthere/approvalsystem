@@ -71,7 +71,7 @@ export default async function DashboardPage() {
         {(session.user as any).role === "REQUESTER" && (
           <Link href="/dashboard/approvals/new">
             <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white">
-              + New Approval
+              + New Approval Request
             </Button>
           </Link>
         )}

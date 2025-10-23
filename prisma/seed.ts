@@ -12,36 +12,35 @@ async function main() {
 
   // Create requester
   const requester = await prisma.user.upsert({
-    where: { email: 'requester@approvalhub.com' },
-    update: {},
-    create: {
-      email: 'requester@approvalhub.com',
-      name: 'Demo Requester',
-      password: requesterPassword,
-      role: 'REQUESTER',
-      department: 'Demo Department',
-    },
-  });
+  where: { email: 'mhmdfdln14@gmail.com' },
+  update: {},
+  create: {
+    email: 'mhmdfdln14@gmail.com',
+    name: 'Requester',
+    password: await bcrypt.hash('requester123', 12),
+    role: 'REQUESTER',
+    department: 'Testing',
+  },
+});
 
-  // Create approvers
-  const approver1 = await prisma.user.upsert({
-    where: { email: 'approver1@approvalhub.com' },
-    update: {},
-    create: {
-      email: 'approver1@approvalhub.com',
-      name: 'Demo Approver 1',
-      password: approverPassword,
-      role: 'FIRST_APPROVER',
-      department: 'Demo Department',
-    },
-  });
+const approver1 = await prisma.user.upsert({
+  where: { email: 'aquaswing4@gmail.com' },
+  update: {},
+  create: {
+    email: 'aquaswing4@gmail.com',
+    name: 'Approver 1',
+    password: await bcrypt.hash('approver123', 12),
+    role: 'FIRST_APPROVER',
+    department: 'Testing',
+  },
+});
 
   const approver2 = await prisma.user.upsert({
-    where: { email: 'approver2@approvalhub.com' },
+    where: { email: 'vc.ag@atreusg.com' },
     update: {},
     create: {
-      email: 'approver2@approvalhub.com',
-      name: 'Demo Approver 2',
+      email: 'vc.ag@atreusg.com',
+      name: 'Approver 2',
       password: approverPassword,
       role: 'SECOND_APPROVER',
       department: 'Demo Department',
@@ -49,11 +48,11 @@ async function main() {
   });
 
   const approver3 = await prisma.user.upsert({
-    where: { email: 'approver3@approvalhub.com' },
+    where: { email: 'muhammad.hafiz@atreusg.com' },
     update: {},
     create: {
-      email: 'approver3@approvalhub.com',
-      name: 'Demo Approver 3',
+      email: 'muhammad.hafiz@atreusg.com',
+      name: 'Approver 3',
       password: approverPassword,
       role: 'THIRD_APPROVER',
       department: 'Demo Department',

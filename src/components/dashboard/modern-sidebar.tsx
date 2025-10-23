@@ -22,9 +22,9 @@ import { useState } from "react";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "My Approvals", href: "/dashboard/approvals", icon: FileText },
-  { name: "New Approval", href: "/dashboard/approvals/new", icon: Plus },
-  { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
+  { name: "My Request", href: "/dashboard/approvals", icon: FileText },
+  { name: "New Request", href: "/dashboard/approvals/new", icon: Plus },
+  { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3, adminOnly:true },
   { name: "Users", href: "/dashboard/admin/users", icon: Users, adminOnly: true },
   { name: "Settings", href: "/dashboard/settings", icon: Settings },
 ];

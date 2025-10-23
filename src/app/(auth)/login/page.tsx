@@ -22,7 +22,7 @@ export default async function LoginPage() {
                 <span className="text-lg font-bold text-slate-900">A</span>
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                ApprovalHub
+                Approval Hub
               </h1>
             </div>
             <p className="text-slate-400">Sign in to your account</p>
@@ -48,8 +48,6 @@ export default async function LoginPage() {
           <p className="font-semibold text-slate-300 mb-2">Demo Credentials:</p>
           <p>Requester: requester@approvalhub.com / requester123</p>
           <p>Level 1: approver1@approvalhub.com / approver123</p>
-          <p>Level 2: approver2@approvalhub.com / approver123</p>
-          <p>Level 3: approver3@approvalhub.com / approver123</p>
         </div>
       </div>
     </div>

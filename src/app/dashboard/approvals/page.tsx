@@ -109,7 +109,7 @@ export default async function ApprovalsPage({
           <Link href="/dashboard/approvals/new">
             <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white">
               <Plus className="w-4 h-4 mr-2" />
-              New Approval
+              New Approval Request
             </Button>
           </Link>
         )}
@@ -150,7 +150,7 @@ export default async function ApprovalsPage({
             <thead className="bg-slate-700/50">
               <tr>
                 <th className="px-6 py-4 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">
-                  Title
+                  Subject
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">
                   Status
