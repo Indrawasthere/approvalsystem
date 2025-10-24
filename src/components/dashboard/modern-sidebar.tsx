@@ -37,7 +37,7 @@ const navigation = [
   { name: "New Request", href: "/dashboard/approvals/new", icon: Plus, badge: null },
   { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3, badge: null, adminOnly: true },
   { name: "Users", href: "/dashboard/admin/users", icon: Users, badge: null, adminOnly: true },
-  { name: "Settings", href: "/dashboard/settings", icon: Settings, badge: null },
+  { name: "Settings", href: "/dashboard/settings", icon: Settings, badge: null, adminOnly: true },
 ];
 
 interface AppSidebarProps {

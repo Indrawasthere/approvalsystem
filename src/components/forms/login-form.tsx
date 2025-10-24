@@ -9,8 +9,8 @@ import { Label } from "@/components/ui/label";
 import { AlertCircle } from "lucide-react";
 
 export function LoginForm() {
-  const [email, setEmail] = useState("requester@approvalhub.com");
-  const [password, setPassword] = useState("requester123");
+  const [email, setEmail] = useState("admin@atreusg.com");
+  const [password, setPassword] = useState("@admin123");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
