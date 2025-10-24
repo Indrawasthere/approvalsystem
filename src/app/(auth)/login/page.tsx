@@ -19,7 +19,7 @@ export default async function LoginPage() {
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-lg flex items-center justify-center">
-                <span className="text-lg font-bold text-slate-900">A</span>
+                <span className="text-lg font-bold text-slate-900">4</span>
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 Approval Hub
