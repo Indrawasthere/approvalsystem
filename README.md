@@ -102,8 +102,8 @@ proveit/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/proveit.git
-   cd proveit
+   git clone https://github.com/indrawasthere/approvalsystem.git
+   cd approvalsystem
    ```
 
 2. **Install dependencies**
@@ -119,7 +119,7 @@ proveit/
    Configure your environment variables:
    ```env
    # Database
-   DATABASE_URL="postgresql://username:password@localhost:5432/proveit"
+   DATABASE_URL="postgresql://username:password@localhost:5432/approvalsystem"
 
    # NextAuth
    NEXTAUTH_SECRET="your-secret-key"
